@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myshop/constants/global_variables.dart';
+import 'package:myshop/features/auth/screens/auth_screen.dart';
+import 'package:myshop/router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        colorScheme:
+            const ColorScheme.light(primary: GlobalVariables.secondaryColor),
         appBarTheme: const AppBarTheme(
           elevation: 0,
           iconTheme: IconThemeData(
@@ -22,14 +26,8 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: GlobalVariables.backgroundColor,
       ),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Hello."),
-        ),
-        body: const Center(
-          child: Text("HI"),
-        ),
-      ),
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home: const AuthScreen(),
     );
   }
 }
