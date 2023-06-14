@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myshop/common/widgets/custom_button.dart';
 import 'package:myshop/common/widgets/custom_text_field.dart';
 import 'package:myshop/constants/global_variables.dart';
+import 'package:myshop/features/auth/services/auth_service.dart';
 
 enum Auth { signin, signup }
 
@@ -16,11 +17,20 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signup;
   final _signUpFormKey = GlobalKey<FormState>();
+  final AuthService authSerivce = AuthService();
   final _signInFormKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
+
+  void signUpUser() {
+    authSerivce.signUpUser(
+        email: _emailController.text,
+        password: _passwordController.text,
+        name: _nameController.text,
+        context: context);
+  }
 
   @override
   void dispose() {
@@ -97,7 +107,14 @@ class _AuthScreenState extends State<AuthScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-                      CustomButton(text: 'Sign Up', onPressed: () {}),
+                      CustomButton(
+                        text: 'Sign Up',
+                        onPressed: () {
+                          if (_signUpFormKey.currentState!.validate()) {
+                            signUpUser();
+                          }
+                        },
+                      ),
                     ],
                   ),
                 ),

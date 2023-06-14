@@ -14,7 +14,9 @@ const authRouter = require('./routes/auth.js');
 //middleware
 //client -> middleware -> server -> client 
 
+app.use(express.json())
 app.use(authRouter)
+
 
 // Connections
 
