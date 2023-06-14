@@ -1,7 +1,9 @@
 // console.log("hello, world!")
 const express = require('express');
+const mongoose = require('mongoose');
 
 const app = express();
+const DB = 'mongodb+srv://armaan:armaan@cluster0.0mqrpev.mongodb.net/?retryWrites=true&w=majority';
 
 const authRouter = require('./routes/auth.js');
 
@@ -13,6 +15,14 @@ const authRouter = require('./routes/auth.js');
 //client -> middleware -> server -> client 
 
 app.use(authRouter)
+
+// Connections
+
+mongoose.connect(DB).then(() => {
+    console.log("Connection successful!")
+ }).catch((e) => {
+    console.log(`Got an error! ${e.message}`)
+ });
 
 const PORT = 3000;
 
